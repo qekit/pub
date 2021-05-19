@@ -1,0 +1,14 @@
+mkdir -p ~/.config/autostart
+
+cat >~/.config/autostart/run.desktop <<END
+[Desktop Entry]
+Type=Application
+Name=StartupScript
+Exec=你要执行的脚本的完整路径
+Path=如果你的脚本需要设置启动目录，在这里设置
+Terminal=true
+X-GNOME-Autostart-enabled=true
+END
+
+chmod +x ~/.config/autostart/run.desktop
+gio set ~/.config/autostart/run.desktop metadata::trusted yes
