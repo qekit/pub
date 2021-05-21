@@ -15,36 +15,36 @@ SCRIPT_PATH=/home/${USER}/catkin_ws/shell/
 MASTER_COUNT=20
 #两次尝试间隔
 MASTER_WAIT=10
- TMP_FILE=/home/${USER}/.tmp.swap
+TMP_FILE=/home/${USER}/.tmp.swap
 ##### 配置 end ####
 
 index=1
-rm -f $TMP_FILE
-touch $TMP_FILE
+#rm -f $TMP_FILE
+#touch $TMP_FILE
 source /opt/ros/melodic/setup.bash
 
 while [ $index -le $MASTER_COUNT ]
      do
            gnome-terminal -- bash -c "source /opt/ros/melodic/setup.bash;\
                echo "$(rosnode list)" >>$TMP_FILE"
-           roscore_stat=$(tail -n 1 $TMP_FILE)
-          error_code=${roscore_stat:0:1}
-          echo "$error_code"
-          flag="/"
-          if [[ $error_code = $flag ]];then
-               d1=`date +%Y%m%d-%H:%M:%S`
-                echo "$d1 roscore ok" >>$LOG_FILE
-                cd $SCRIPT_PATH
-               ./run_perception.sh 
-                let index=1000
-                rm -f $TMP_FILE
-                exit
-          else 
-                d1=`date +%Y%m%d-%H:%M:%S`
-                echo "$d1 cannot connect roscore" >>$LOG_FILE
-                let index++
-               sleep $MASTER_WAIT
-          fi
+      #      roscore_stat=$(tail -n 1 $TMP_FILE)
+      #     error_code=${roscore_stat:0:1}
+      #     echo "$error_code"
+      #     flag="/"
+      #     if [[ $error_code = $flag ]];then
+      #          d1=`date +%Y%m%d-%H:%M:%S`
+      #           echo "$d1 roscore ok" >>$LOG_FILE
+      #           cd $SCRIPT_PATH
+      #          ./run_perception.sh 
+      #           let index=1000
+      #           rm -f $TMP_FILE
+      #           exit
+      #     else 
+      #           d1=`date +%Y%m%d-%H:%M:%S`
+      #           echo "$d1 cannot connect roscore" >>$LOG_FILE
+      #           let index++
+      #          sleep $MASTER_WAIT
+      #     fi
 done
 echo "$d1 try to  connect roscore more than 20 times, exit" >>$LOG_FILE
 exit 

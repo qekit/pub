@@ -12,3 +12,8 @@ END
 
 chmod +x ~/.config/autostart/run.desktop
 gio set ~/.config/autostart/run.desktop metadata::trusted yes
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - v
+图形化操作就是
+$gnome-session-properties
+添加
