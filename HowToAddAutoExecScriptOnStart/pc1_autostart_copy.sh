@@ -1,12 +1,13 @@
 #!/bin/bash
 ###
- # @Author: your name
+ # @Author: lj
  # @Date: 2021-05-18 17:36:37
- # @LastEditTime: 2021-06-17 18:17:26
+ # @LastEditTime: 2021-06-17 19:45:25
  # @LastEditors: Please set LastEditors
- # @Description: In User Settings Edit
- # @FilePath: /catkin_ws/git-lnk/lj/shell_script_/pc1_autostart.sh
+ # @Description: PC1无人矿卡系统自启动脚本 1.放置在任意目录下 2.$gnome_session_properties 3.add加载刚放置脚本即可
+ # @FilePath: ~/pc1_autostart.sh
 ### 
+
 #说明：PC1上无人系统启动脚本上电自动执行脚本
 #1.测试与机群的通信
 #2.与机群可通信，执行启动脚本
@@ -15,7 +16,7 @@
 #脚本执行日志文件
 LOG_FILE=/home/neousys/autostart_err.log
 #机群地址
-FLEET_IP=192.168.32.201
+FLEET_IP=192.168.32.205
 #无人矿卡系统启动run.sh存放路径
 SCRIPT_PATH=/usr/local/workspace/ahs_truck_debug/
 #测试通讯而尝试ping机群的次数

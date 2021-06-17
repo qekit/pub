@@ -1,4 +1,12 @@
 #!/bin/bash
+###
+ # @Author: lj
+ # @Date: 2021-05-21 11:38:10
+ # @LastEditTime: 2021-06-17 19:43:05
+ # @LastEditors: Please set LastEditors
+ # @Description:PC2无人矿卡系统感知自启动脚本  1.放置在任意目录下 2.$gnome_session_properties 3.add加载刚放置脚本即可
+ # @FilePath: ~/pc2_autostart.sh
+### 
 #说明：这是PC2上感知启动脚本上电自动执行的脚本
 #1.测试ROSMaster是否通了
 #2.只有RosMaster通了，才开始执行感知自起脚本
@@ -40,6 +48,8 @@ while [ $index -le $MASTER_COUNT ]
                 d1=`date +%Y%m%d-%H:%M:%S`
                  echo "$d1 roscore ok" >>$LOG_FILE
                  cd $SCRIPT_PATH
+                 source /opt/ros/melodic/setup.bash
+                 source /home/neousys/.bashrc
                 ./run_perception.sh
                  let index=1000
       #           rm -f $TMP_FILE
