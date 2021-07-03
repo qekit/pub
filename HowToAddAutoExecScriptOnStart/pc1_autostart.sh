@@ -23,7 +23,7 @@ FLEET_COUNT=20
 #每次ping机群的时候等待时长
 FLEET_WAIT=10
 ##### 配置 end ####
-
+export ROS_HOSTNAME=192.168.0.11
 a=1
 while [ $a -le $FLEET_COUNT ]
     do
