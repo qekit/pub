@@ -19,7 +19,7 @@ FLEET_IP=192.168.32.201
 #无人矿卡系统启动run.sh存放路径
 SCRIPT_PATH=/usr/local/workspace/ahs_truck_debug/
 #测试通讯而尝试ping机群的次数
-FLEET_COUNT=20
+FLEET_COUNT=100
 #每次ping机群的时候等待时长
 FLEET_WAIT=10
 ##### 配置 end ####

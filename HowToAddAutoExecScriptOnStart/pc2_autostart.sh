@@ -20,7 +20,7 @@ ROS_PACKAGES_PATH=/opt/ros/melodic/setup.bash
 SCRIPT_PATH=/home/${USER}/catkin_ws/shell/
 
 #测试ROS Master是否通而尝试的次数
-MASTER_COUNT=20
+MASTER_COUNT=100
 #两次尝试间隔
 MASTER_WAIT=10
 #TMP_FILE=/home/${USER}/.tmp.swap
