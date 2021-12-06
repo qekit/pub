@@ -9,21 +9,22 @@
 #Description:starts svnd.sh using start-stop-daemon
 ###END INIT INFO
 
-LOG_FILE=/home/neousys/scripts/time_update_err.log
+LOG_FILE=/home/neousys/scripts/ntpdate_error.log
+# NTP_SERVER=192.168.32.200	#ABB
+# NTP_SERVER=169.169.2.200	#5G
+NTP_SERVER=ntp1.aliyun.com	#ali
 
 INDEX=1
 while [ $INDEX -le 1000 ]
 	do
-		# ping -c 1 -W 10 192.168.32.200
-		# ping -c 1 -W 10 169.169.2.200
-		ping -c 1 -W ntp1.aliyun.com
-		if [[ $? != 0 ]];then
-			date=`date +%Y/%m/%d-%H:%M:%S`
-      echo "$date ERROR: cannot connect 192.168.32.200! Tried $INDEX times" >> $LOG_FILE
-      let INDEX++
-			sleep 10s
-		else
-			sudo ntpdate ntp1.aliyun.com && sudo hwclock -w
+		ping -c 1 -W 10 $NTP_SERVER
+		if [ $? -eq 0 ]; then
+			echo "xcmg12345678" | sudo -S ntpdate -s $NTP_SERVER && sudo hwclock -w
 			exit
+		else
+			date=`date +%Y/%m/%d-%H:%M:%S`
+      echo "$date ERROR: cannot connect $NTP_SERVER ! Tried $INDEX times" >> $LOG_FILE
+      let INDEX++
+			sleep 30
 		fi
 	done
