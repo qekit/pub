@@ -1,0 +1,167 @@
+
+
+1.安装
+
+设置软件源：
+
+设置最新的密钥：
+
+安装：
+
+初始化rosdep:
+
+安装rosinstall
+
+加载环境设置文件
+
+2.创建并初始化工作目录
+
+3.小海龟测试
+
+
+
+https://blog.csdn.net/qq_41450811/article/details/99079041
+
+1.安装ROS
+
+1.1 设置软件源：
+
+sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/ros-latest.list'
+
+
+1.2 设置最新的密钥：
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
+
+
+1.3 安装：
+
+sudo apt-get update
+sudo apt-get install ros-melodic-desktop-full
+sudo apt-get install ros-melodic-rqt*
+
+
+1.4 初始化rosdep:
+
+sudo rosdep init
+rosdep update
+
+
+问题1：提示没有命令rosdep
+
+解决方式：
+
+sudo apt-get install python-rosdep
+
+
+问题2：ERROR: cannot download default sources list from:
+
+https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/sources.list.d/20-default.list
+
+Website may be down.
+
+解决方式：参照 https://blog.csdn.net/nanianwochengshui/article/details/105702188
+第一步
+
+首先进入github.com/ros/rosdistro去把这个包下载下来
+
+第二步
+
+修改这个包中rosdep/source.list.d/下的文件20-default.list，将这个文件中指向raw.githubusercontent.com的url地址全部修改为指向本地文件的地址，也就是该下载好的包的地址
+
+file::///home/lj/download/
+
+第三步
+
+/usr/lib/python2.7/dist-packages/rosdep2/sources_list.py之 Default，改完后如下
+# default file to download with 'init' command in order to bootstrap
+# rosdep
+DEFAULT_SOURCES_LIST_URL = 'file:///home/lj/Downloads/rosdistro-master/rosdep/sources.list.d/20-default.list'
+
+第四步
+
+修改以下两个文件里面的代码：
+
+/usr/lib/python2.7/dist-packages/rosdep2/rep3.py，  改完后如下
+# location of targets file for processing gbpdistro files
+REP3_TARGETS_URL = 'file:///home/lj/Downloads/rosdistro-master/releases/targets.yaml'
+/usr/lib/python2.7/dist-packages/rosdistro/__init__.py ，  改完后如下
+# index information
+
+DEFAULT_INDEX_URL = 'file:///home/lj/Downloads/rosdistro-master/index-v4.yaml'
+
+解决了
+
+
+
+1.5 安装rosinstall
+
+sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+
+加载环境设置文件
+
+source /opt/ros/melodic/setup.bash
+
+
+2.创建并初始化工作目录
+
+ROS使用一个名为catkin的ROS专用构建系统。为了使用它，用户需要创建并初始化
+
+
+
+catkin工作目录，如下所示。除非用户创建新的工作目录，否则此设置只需设置一次。
+
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+catkin_init_workspace
+
+目前，只有src目录和CMakeLists.txt文件在catkin工作目录中，使用catkin_make命令来构建
+
+cd ~/catkin_ws/
+catkin_make
+
+设置环境变量：
+
+sudo apt install net-tools
+gedit ~/.bashrc
+
+
+
+# Set ROS melodic
+
+source /opt/ros/melodic/setup.bash
+
+source ~/catkin_ws/devel/setup.bash
+
+# Set ROS Network
+
+#ifconfig查看你的电脑ip地址
+
+export ROS_HOSTNAME=192.168.89.135
+
+export ROS_MASTER_URI=http://${ROS_HOSTNAME}:11311
+
+# Set ROS alias command 快捷指令
+
+alias cw='cd ~/catkin_ws'
+
+alias cs='cd ~/catkin_ws/src'
+
+alias cm='cd ~/catkin_ws && catkin_make'
+
+
+
+
+
+3.小海龟测试
+
+roscore
+rosrun turtlesim turtlesim_node
+rosrun turtlesim turtle_teleop_key
+
+
+
+额外
+ubuntu18安装rosbridge
+
+sudo apt-get install ros-melodic-rosbridge-server 服务器端，新终端，运行： source 要传送的msg的 编译包 例如: source msgs_ht/install/setup.bash roslaunch rosbridge_server rosbridge_websocket.launch
